@@ -1,0 +1,66 @@
+<!-- This is some text within a card body. -->
+<ngx-spinner
+bdColor = "rgba(51, 51, 51, 0.8)"
+size = "large"
+color = "#fff"
+type = "ball-clip-rotate-multiple"
+></ngx-spinner>
+<div class="forecast-table" *ngIf="weatherData"> 
+  <div class="container">
+    <div class="forecast-container">
+      <div class="today forecast">
+        <div class="forecast-header">
+          <div class="day" *ngIf='hourData'>{{hourData[0]?.weekday|uppercase}}</div>
+          <div class="date">{{presentData.utcTime|date:'longDate'}}</div>
+        </div> <!-- .forecast-header -->
+        <div class="forecast-content">
+          <div class="location currTemp">{{presentData.city|uppercase}},&nbsp;{{presentData.state|uppercase}},&nbsp;{{presentData.country|uppercase}}
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                    <div class="white">
+                      <i class="fa fa-arrow-circle-down" style="color:green"></i>&nbsp;
+                      <span class="font-size-30">{{presentData.lowTemperature}}°F</span>
+                      <!-- <span class="font-size-24">C</span> -->
+                    </div>
+                    <div class="font-size-14">LOW</div>
+                  </div>
+                  <div class="col-6">
+                    <div class="white">
+                      <i class="fa fa-arrow-circle-up" style="color:#ff666b!important"></i>&nbsp;
+                      <span class="font-size-30">{{presentData.highTemperature}}°F</span>
+                      <!-- <span class="font-size-24">C</span> -->
+                    </div>
+                    <div class="font-size-14">HIGH</div>
+                  </div>
+                </div>
+          <div class="degree">
+            <div class="num">{{presentData.temperature}}<sup>o</sup>F</div>
+            <div class="forecast-icon">
+              <img [src]="presentData.iconLink||''" alt="" width=90>
+            </div>
+          </div>
+          <span><img src="assets/images/icon-umberella.png" alt="">{{presentData.humidity}}%</span>
+          <span><img src="assets/images/icon-wind.png" alt="">{{presentData.windSpeed}}km/h</span>
+          <span><img src="assets/images/icon-compass.png" alt="">{{presentData.windDesc}}</span>
+          <br>
+          <br>
+          <div class="text-success">Sky is <b>{{presentData.skyDescription}}</b> and temparature is <b>{{presentData.temperatureDesc}}</b></div>
+        </div>
+      </div>
+
+      <div *ngFor='let data of dayData' class="forecast">
+        <div class="forecast-header">
+          <div class="day">{{data.weekday}}</div>
+        </div>
+        <div class="forecast-content">
+          <div class="forecast-icon">
+            <img [src]="data.iconLink" alt="" width=48>
+          </div>
+          <div class="degree">{{data.highTemperature}}<sup>o</sup>F</div>
+          <small>{{data.lowTemperature}}<sup>o</sup>F</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

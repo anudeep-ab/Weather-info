@@ -1,0 +1,47 @@
+<div class='container' style="color:white">
+  <div class="panel-body">
+    <div class="row" *ngIf="!authenticated">
+      <div>
+        <h3>One of the leading weather application. No of users registered were <span class="badge badge-primary">{{noOfUsers}}</span>&nbsp;.
+          Please sign up soon to get accurate weather information in your location.</h3>
+      </div>
+      <div class="col-lg-12">
+        <form [formGroup]="zipForm" (ngSubmit)="signUp()">
+          <div class="form-group">
+            <div class="input-group mb-3" style='color:white'>
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary" type="button">Zip Code <i class="fa fa-home"></i></button>
+              </div>
+              <input type="text" class="form-control" placeholder="Enter your zipcode" (change)="isValidUSZip(zipForm.controls['zipcode'].value)"
+                [ngClass]="{'fberror':!zipForm.controls['zipcode'].valid&&zipForm.controls['zipcode'].touched }"
+                formControlName="zipcode">
+            </div>
+            <div class="alert alert-warning" *ngIf="!zipForm.controls['zipcode'].valid&&zipForm.controls['zipcode'].touched">
+              Please enter a valid five digit valid zip code.
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <div class="col-xs-6 col-xs-offset-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="agree" [ngClass]="{'fberror':!zipForm.controls['tc'].valid&&zipForm.controls['tc'].touched }"
+                    formControlName="tc" /> Agree with the terms and conditions
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="text-center">
+              <button [disabled]="zipForm.invalid||zipForm.get('tc').value != true" class="btn btn btn-outline-primary"
+                type="submit">SignUp <i class="fa fa-user-circle"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row" *ngIf="authenticated">
+      <h3>You are one among <span class="badge badge-primary">{{noOfUsers}}</span> users who already signed up. Redirecting to your preview shotly!!! </h3>
+
+    </div>
+  </div>
+</div>
